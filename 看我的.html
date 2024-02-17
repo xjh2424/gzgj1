@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>浓度计算器</title>
+    <script>
+    function calculateConcentrations() {
+        // 获取用户输入的值
+        var C_H2SO4 = parseFloat(document.getElementById('C_H2SO4').value); // 硫酸的浓度
+        var initialVolume = parseFloat(document.getElementById('initial_volume').value); // 初始容量
+        var firstTitration = parseFloat(document.getElementById('first_titration').value); // 第一次滴定容量
+        var secondTitration = parseFloat(document.getElementById('second_titration').value); // 第二次滴定容量
+        
+        // 计算V1和V2
+        var V1 = firstTitration - initialVolume;
+        var V2 = secondTitration - initialVolume;
+
+        // 计算步骤
+        var calculationSteps = "";
+
+        // 计算氢氧化钠与硫酸反应的体积（V2 - V1）
+        var V3 = V2 - V1;
+        calculationSteps += `步骤1: 计算氢氧化钠与硫酸反应的体积 V3 = V2 - V1 = ${(V2).toFixed(4)} - ${(V1).toFixed(4)} = ${(V3).toFixed(4)} L<br>`;
+
+        // 计算氢氧化钠的浓度
+        var C_NaOH = 16 * C_H2SO4 * (V1 - V3 / 3);
+        calculationSteps += `步骤2: 计算氢氧化钠的浓度 C_NaOH = 16 * C_H2SO4 * (V1 - V3 / 3) = 16 * ${(C_H2SO4).toFixed(4)} * (${(V1).toFixed(4)} - ${(V3 / 3).toFixed(4)}) = ${(C_NaOH).toFixed(4)} mol/L<br>`;
+
+        // 计算铝离子的浓度
+        var C_Al3 = V3 * 8.1 * C_H2SO4;
+        calculationSteps += `步骤3: 计算铝离子的浓度 [Al^{3+}] = V3 * 8.1 * C_H2SO4 = ${(V3).toFixed(4)} * 8.1 * C_H2SO4 = ${(C_Al3).toFixed(4)} mol/L<br>`;
+
+        // 将计算步骤显示到页面上
+        document.getElementById('calculation_steps').innerHTML = calculationSteps;
+
+        // 将结果显示到页面上
+        document.getElementById('C_NaOH_result').innerText = `氢氧化钠 C_NaOH 的浓度是: ${C_NaOH.toFixed(4)} mol/L`;
+        document.getElementById('C_Al3_result').innerText = `铝离子 [Al^{3+}] 的浓度是: ${C_Al3.toFixed(4)} mol/L`;
+    }
+    </script>
+</head>
+<body>
+
+<h2>浓度计算器</h2>
+
+<form onsubmit="event.preventDefault(); calculateConcentrations();">
+    <label for="C_H2SO4">硫酸浓度 C_H2SO4 (mol/L):</label>
+    <input type="number" id="C_H2SO4" placeholder="如：1.098" step="any" required><br><br>
+
+    <label for="initial_volume">初始容量 (L):</label>
+    <input type="number" id="initial_volume" placeholder="初始容量" step="any" required><br><br>
+    
+    <label for="first_titration">第一次滴定容量 (L):</label>
+    <input type="number" id="first_titration" placeholder="第一次滴定容量" step="any" required><br><br>
+    
+    <label for="second_titration">第二次滴定容量 (L):</label>
+    <input type="number" id="second_titration" placeholder="第二次滴定容量" step="any" required><br><br>
+
+    <input type="submit" value="计算浓度">
+</form>
+
+<div id="calculation_steps"></div> <!-- 计算步骤展示区域 -->
+
+<p id="C_NaOH_result">氢氧化钠 C_NaOH 的浓度是：</p>
+<p id="C_Al3_result">铝离子 [Al^{3+}] 的浓度是：</p>
+
+<p>杰华</p>
+
+</body>
+</html>

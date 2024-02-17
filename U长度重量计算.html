@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>长度和重量计算器</title>
+    <script>
+        function calculateLength() {
+            var weight = document.getElementById('weight').value; // 重量 (kg)
+            var width = document.getElementById('width').value; // 宽度 (m)
+            var thickness = document.getElementById('thickness').value; // 厚度 (mm)
+            var density = 2.71; // 密度 (g/cm³), 在此处保持原始单位不变
+
+            // 直接进行计算
+            var length = weight / (width * thickness * density);
+
+            document.getElementById('lengthResult').innerHTML = '计算的长度: ' + length + ' [单位]';
+        }
+
+        function calculateWeight() {
+            var length = document.getElementById('lengthW').value; // 长度
+            var width = document.getElementById('widthW').value; // 宽度
+            var thickness = document.getElementById('thicknessW').value; // 厚度
+            var density = 2.71; // 密度
+
+            // 计算重量
+            var weight = length * width * thickness * density;
+            // 注意: 这里假设密度单位允许计算结果直接为kg，实际上可能需要换算
+
+            document.getElementById('weightResult').innerHTML = '计算的重量: ' + weight + ' kg';
+        }
+    </script>
+</head>
+<body>
+    <h2>长度计算器</h2>
+    重量(kg): <input type="number" id="weight" step="0.01"><br>
+    宽度(m): <input type="number" id="width" step="0.01"><br>
+    厚度(mm): <input type="number" id="thickness" step="0.01"><br>
+    <button onclick="calculateLength()">计算长度</button>
+    <p id="lengthResult"></p>
+
+    <h2>重量计算器</h2>
+    长度(m): <input type="number" id="lengthW" step="0.01"><br> <!-- 注意长度的单位 -->
+    宽度(m): <input type="number" id="widthW" step="0.01"><br> <!-- 注意宽度的单位 -->
+    厚度(mm): <input type="number" id="thicknessW" step="0.01"><br> <!-- 注意厚度的单位 -->
+    <button onclick="calculateWeight()">计算重量</button>
+    <p id="weightResult"></p>
+
+</body>
+</html>
